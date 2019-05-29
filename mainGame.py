@@ -79,15 +79,6 @@ while running:
     # 게임 제어 최대 프레임 60
     clock.tick(60)
 
-    # 탄알을 발사하는 빈도를 통제하고, 총알을 발사한다.
-    if not player.is_hit:
-        if shoot_frequency % 15 == 0:
-            bullet_sound.play()
-            player.shoot(bullet_img)
-        shoot_frequency += 1
-        if shoot_frequency >= 15:
-            shoot_frequency = 0
-
     # 적기를 생성
     if enemy_frequency % 50 == 0:
         enemy1_pos = [random.randint(0, SCREEN_WIDTH - enemy1_rect.width), 0]
@@ -179,7 +170,13 @@ while running:
             player.moveLeft()
         if key_pressed[K_d] or key_pressed[K_RIGHT]:
             player.moveRight()
-
+        if key_pressed[K_z]:
+                if shoot_frequency % 8 == 0:
+                    bullet_sound.play()
+                    player.shoot(bullet_img)
+                shoot_frequency += 1
+                if shoot_frequency >= 8:
+                    shoot_frequency = 0
 
 font = pygame.font.Font(None, 48)
 text = font.render('Score: '+ str(score), True, (255, 0, 0))
