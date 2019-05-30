@@ -156,7 +156,7 @@ while running:
     score_font = pygame.font.Font(None, 36)
     score_text = score_font.render(str(score), True, (128, 128, 128))
     text_rect = score_text.get_rect()
-    text_rect.topleft = [10, 10]
+    text_rect.topleft = [80, 10]
     screen.blit(score_text, text_rect)
     
     #라이프 포인트
