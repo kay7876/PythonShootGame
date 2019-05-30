@@ -15,7 +15,8 @@ import random
 # 게임 초기화
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('飞机大战')
+pygame.display.set_caption('OSS프로젝트')
+life = 2  # 게임 시작 시 초기 라이프 갯수
 
 # 게임 음악 로드 중
 bullet_sound = pygame.mixer.Sound('resources/sound/bullet.wav')
@@ -101,11 +102,19 @@ while running:
         if pygame.sprite.collide_circle(enemy, player):
             enemies_down.add(enemy)
             enemies1.remove(enemy)
-            player.is_hit = True
-            game_over_sound.play()
-            break
-        if enemy.rect.top > SCREEN_HEIGHT:
-            enemies1.remove(enemy)
+            life = life - 1
+            player_rect = []
+            player_rect.append(pygame.Rect(0, 99, 102, 126))        # 플레이어 스프라이트 이미지 영역
+            player_rect.append(pygame.Rect(165, 360, 102, 126))
+            player_rect.append(pygame.Rect(165, 234, 102, 126))     # 플레이어 폭발 스프라이트 이미지 영역
+            player_rect.append(pygame.Rect(330, 624, 102, 126))
+            player_rect.append(pygame.Rect(330, 498, 102, 126))
+            player_rect.append(pygame.Rect(432, 624, 102, 126))
+            player_pos = [200, 600]
+            player = Player(plane_img, player_rect, player_pos)
+            if life<0:
+                    game_over_sound.play()
+                    player.is_hit=True
 
     # 파괴된 적기를 저장
     enemies1_down = pygame.sprite.groupcollide(enemies1, player.bullets, 1, 1)
@@ -149,6 +158,13 @@ while running:
     text_rect = score_text.get_rect()
     text_rect.topleft = [10, 10]
     screen.blit(score_text, text_rect)
+    
+    #라이프 포인트
+    life_font = pygame.font.Font(None, 36)
+    life_text = life_font.render(str(life), True, (128, 128, 128))
+    text_rect = life_text.get_rect()
+    text_rect.topleft = [80, 40]
+    screen.blit(life_text, text_rect)
 
     # 최종 화면 업데이트
     pygame.display.update()
@@ -170,7 +186,8 @@ while running:
             player.moveLeft()
         if key_pressed[K_d] or key_pressed[K_RIGHT]:
             player.moveRight()
-        if key_pressed[K_z]:
+        # 키 입력시 총알 발사
+        if key_pressed[K_z]: 
                 if shoot_frequency % 8 == 0:
                     bullet_sound.play()
                     player.shoot(bullet_img)
