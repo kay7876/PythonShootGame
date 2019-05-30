@@ -103,6 +103,7 @@ while running:
             enemies_down.add(enemy)
             enemies1.remove(enemy)
             life = life - 1
+            score = score - 1000 // 적기에 피격되었을 때 점수가 오르면 안됨
             player_rect = []
             player_rect.append(pygame.Rect(0, 99, 102, 126))        # 플레이어 스프라이트 이미지 영역
             player_rect.append(pygame.Rect(165, 360, 102, 126))
