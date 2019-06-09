@@ -25,12 +25,12 @@ game_over_sound = pygame.mixer.Sound('resources/sound/game_over.wav')
 bullet_sound.set_volume(0.3)
 enemy1_down_sound.set_volume(0.3)
 game_over_sound.set_volume(0.3)
-pygame.mixer.music.load('resources/sound/game_music.wav')
+pygame.mixer.music.load('resources/sound/game_music1.mp3')
 pygame.mixer.music.play(-1, 0.0)
 pygame.mixer.music.set_volume(0.25)
 
 # 배경 이미지 로드 중
-background = pygame.image.load('resources/image/background.png').convert()
+background = pygame.image.load('resources/image/background5.png').convert()
 game_over = pygame.image.load('resources/image/gameover.png')
 
 filename = 'resources/image/shoot.png'
